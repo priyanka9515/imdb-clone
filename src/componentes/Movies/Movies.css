@@ -1,0 +1,6 @@
+.movies {
+  display: grid;
+  grid-template-columns: 350px 350px 350px;
+  grid-gap: 30px;
+  justify-content: center;
+}
