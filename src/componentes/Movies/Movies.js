@@ -8,6 +8,7 @@ import StarRatingComponent from "react-star-rating-component";
 import { withStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import "./Movies.css";
+import { Redirect } from "react-router-dom";
 
 const movies = [];
 for (let i = 0; i < 30; i++) {
@@ -19,49 +20,56 @@ for (let i = 0; i < 30; i++) {
     price: faker.random.number({ min: 150, max: 500 }),
     description: faker.lorem.sentence(),
     director: faker.name.findName(),
-    rate: 0
+    rating: 0
   });
 }
 
 const styles = theme => ({
   card: {
-    height: "200px",
-    width: "300px",
-    display: "flex"
+    display: "flex",
+    width: "400px",
+    height: "200px"
   },
   data: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     alignContent: "flex-end"
   },
-  content: {
-    flex: "1 0"
-  },
+
   cover: {
-    width: "120px"
+    width: "180px"
   }
 });
 
 class movieList extends React.Component {
   constructor() {
     super();
-
-    // state = { expanded: false };
-
     this.state = {
-      rating: 1
+      movies: movies,
+      redirect: true
     };
+    // this.state = {
+    //   rating: 1
+    // };
   }
-  onStarClick(nextValue, prevValue, name) {
+
+  onStarClick(nextValue, index) {
     this.setState({ rating: nextValue });
   }
 
   render() {
-    const { classes, rating } = this.props;
-
+    const { classes } = this.props;
+    const { rating } = this.state;
+    const { redirect } = this.state;
+    if (redirect) {
+      return (
+        <Redirect to={{ pathname: "/signin", state: { from: "/movies" } }} />
+      );
+    }
     return (
       <div className="movies">
         {movies.map((object, index) => {
+          console.log(this.state);
           return (
             <Card className={classes.card}>
               <CardMedia
@@ -82,11 +90,8 @@ class movieList extends React.Component {
                     value={rating}
                     onStarClick={this.onStarClick.bind(this)}
                   />
-                  <h2> {object.rating}</h2>
-
-                  {/* <h2>{object.rate}/5</h2> */}
+                  {rating}/5
                   <Typography
-                    variant="subtitle1"
                     color="textSecondary"
                     style={{ fontSize: "12px" }}
                   >
@@ -110,4 +115,3 @@ movieList.propTypes = {
 };
 
 export default withStyles(styles)(movieList);
-// export default movie;

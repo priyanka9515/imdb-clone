@@ -1,14 +1,18 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
-// const movies = [];
-// for (let i = 0; i < 20; i++) {
-//   movies.push({});
-// }
-
-class watchList extends Component {
-  state = {};
+class watchList extends React.Component {
+  state = {
+    watchList: watchList,
+    redirect: true
+  };
   render() {
-    return <h1>pinky</h1>;
+    const { redirect } = this.state;
+    if (redirect) {
+      return (
+        <Redirect to={{ pathname: "/signin", state: { from: "/watchList" } }} />
+      );
+    }
   }
 }
 
