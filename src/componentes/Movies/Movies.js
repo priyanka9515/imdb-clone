@@ -17,7 +17,7 @@ for (let i = 0; i < 30; i++) {
     image: faker.image.image(150, 200, true),
     movie: faker.lorem.word(),
     year: faker.random.number({ min: 1995, max: 2020 }),
-    price: faker.random.number({ min: 150, max: 500 }),
+    price: faker.random.number({ min: 200, max: 700 }),
     description: faker.lorem.sentence(),
     director: faker.name.findName(),
     rating: 0
@@ -32,8 +32,8 @@ const styles = theme => ({
   },
   data: {
     display: "flex",
-    flexDirection: "row",
-    alignContent: "flex-end"
+    flexDirection: "column",
+    alignContent: "flex-start"
   },
 
   cover: {
@@ -46,16 +46,19 @@ class movieList extends React.Component {
     super();
     this.state = {
       movies: movies,
-      redirect: true
+      redirect: false
     };
     // this.state = {
     //   rating: 1
     // };
   }
 
-  onStarClick(nextValue, index) {
-    this.setState({ rating: nextValue });
-  }
+  onStarClick = (index, value) => {
+    const { movies } = this.state;
+    movies[index].rating = value;
+
+    this.setState({ movies });
+  };
 
   render() {
     const { classes } = this.props;
@@ -79,7 +82,7 @@ class movieList extends React.Component {
               />
               <div className={classes.data}>
                 <CardContent>
-                  <Typography component="h6" variant="h6">
+                  <Typography component="h5" variant="h6">
                     {object.movie}({object.year})
                   </Typography>
                   <Typography>Price:Rs.{object.price}/-</Typography>
@@ -87,17 +90,17 @@ class movieList extends React.Component {
                   <StarRatingComponent
                     name="rate1"
                     starCount={5}
-                    value={rating}
-                    onStarClick={this.onStarClick.bind(this)}
+                    value={object.rating}
+                    onStarClick={value => this.onStarClick(index, value)}
                   />
-                  {rating}/5
+                  {object.rating}/5
                   <Typography
-                    color="textSecondary"
+                    // color="textSecondary"
                     style={{ fontSize: "12px" }}
                   >
                     {object.description}
                   </Typography>
-                  <p style={{ fontSize: "12px" }}>
+                  <p style={{ fontSize: "12px", color: "textPrimary" }}>
                     Director: {object.director}
                   </p>
                 </CardContent>

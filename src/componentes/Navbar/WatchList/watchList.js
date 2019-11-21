@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
-class watchList extends React.Component {
+class WatchList extends React.Component {
   state = {
-    watchList: watchList,
+    WatchList: WatchList,
     redirect: true
   };
   render() {
@@ -16,4 +16,4 @@ class watchList extends React.Component {
   }
 }
 
-export default watchList;
+export default WatchList;
