@@ -9,11 +9,9 @@ class Navbar extends Component {
   state = {};
   render() {
     return (
-     
       <div className="Navbar">
-       
-       <Search />
-        <Link to="/">
+        <Search />
+        <Link to="/home">
           <Button style={{ color: "white", marginLeft: "30px" }}>Home</Button>
         </Link>
         <Link to="/Movies">
@@ -24,10 +22,17 @@ class Navbar extends Component {
             WatchList
           </Button>
         </Link>
-        <Link to="/signin">
-          <Button style={{ color: "white", marginLeft: "30px" }}>Signin</Button>
-        </Link>
-        
+        {this.props.isLoggedin ? (
+          <Button style={{ color: "white", marginLeft: "30px" }}>
+            signOut
+          </Button>
+        ) : (
+          <Link to="/signin">
+            <Button style={{ color: "white", marginLeft: "30px" }}>
+              Signin
+            </Button>
+          </Link>
+        )}
       </div>
     );
   }

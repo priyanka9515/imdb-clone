@@ -7,12 +7,13 @@ class WatchList extends React.Component {
     redirect: true
   };
   render() {
-    const { redirect } = this.state;
-    if (redirect) {
-      return (
-        <Redirect to={{ pathname: "/signin", state: { from: "/watchList" } }} />
-      );
-    }
+    // const { redirect } = this.state;
+    // if (redirect) {
+    //   return (
+    //     <Redirect to={{ pathname: "/signin", state: { from: "/watchList" } }} />
+    //   );
+    // }
+    return <h1>Empty:P</h1>;
   }
 }
 
